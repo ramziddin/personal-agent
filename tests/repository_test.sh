@@ -28,6 +28,7 @@ fi
 
 ruby -ryaml - <<'RUBY'
 config = YAML.safe_load(File.read("hermes/config.yaml"), permitted_classes: [], aliases: false)
+raise unless config["_config_version"] == 39
 raise unless config["model"] == {"provider" => "zai", "default" => "glm-5.3-flash"}
 raise unless config.dig("terminal", "backend") == "local"
 raise unless config.dig("terminal", "cwd") == "/opt/data/workspace"
@@ -45,6 +46,7 @@ grep -q 'github("ramziddin/personal-agent", { branch: "main" })' .railway/railwa
 grep -q '"/opt/data": volume("hermes-data")' .railway/railway.ts
 grep -q 'GLM_API_KEY: preserve()' .railway/railway.ts
 grep -q 'TELEGRAM_BOT_TOKEN: preserve()' .railway/railway.ts
+grep -q 'docker run --rm personal-agent:test --version' .github/workflows/ci.yml
 
 if grep -E '[0-9]{8,}:[A-Za-z0-9_-]{20,}|sk-[A-Za-z0-9_-]{16,}' .env.example >/dev/null; then
   printf '%s\n' '.env.example appears to contain a real credential' >&2

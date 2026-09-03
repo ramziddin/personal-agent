@@ -39,4 +39,4 @@ jobs:
       - name: Build image
         run: docker build --tag personal-agent:test .
       - name: Verify Hermes version command
-        run: docker run --rm personal-agent:test version
+        run: docker run --rm personal-agent:test --version

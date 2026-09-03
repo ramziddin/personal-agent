@@ -63,7 +63,7 @@ sh tests/bootstrap_test.sh
 sh tests/repository_test.sh
 shellcheck scripts/bootstrap.sh tests/*.sh
 docker build --tag personal-agent:test .
-docker run --rm personal-agent:test version
+docker run --rm personal-agent:test --version
 ```
 
 The Docker checks can run in CI when no local Docker daemon is available.

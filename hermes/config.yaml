@@ -1,3 +1,5 @@
+_config_version: 39
+
 model:
   provider: zai
   default: glm-5.3-flash
