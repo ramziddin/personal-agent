@@ -9,7 +9,7 @@ Hermes runs with broad tool access and command approvals disabled. This is inten
 - Telegram accepts only the configured numeric user ID.
 - The upstream image runs Hermes as a non-root user.
 - The Hermes installation under `/opt/hermes` is immutable.
-- Writable state is constrained to `/opt/data`.
+- Durable application state stays under `/opt/data`; non-root permissions keep the installed Hermes tree under `/opt/hermes` immutable.
 - Hermes filters credentials from terminal and code-execution subprocesses and redacts secrets from output.
 
 Do not expose the Hermes dashboard, API server, or a public Railway domain without adding authentication and reviewing the upstream security guidance.

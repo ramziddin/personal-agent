@@ -28,8 +28,7 @@ agent:
 
 tool_loop_guardrails:
   warnings_enabled: true
-  hard_stop_enabled: false
-  non_interactive_hard_stop_enabled: true
+  hard_stop_enabled: true
   warn_after:
     exact_failure: 2
     same_tool_failure: 3

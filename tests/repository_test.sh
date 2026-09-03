@@ -41,6 +41,8 @@ raise unless config["session_reset"] == {"mode" => "idle", "idle_minutes" => 144
 raise unless config.dig("approvals", "mode") == "off"
 raise unless config.dig("approvals", "cron_mode") == "approve"
 raise unless config.dig("security", "redact_secrets") == true
+raise unless config.dig("tool_loop_guardrails", "hard_stop_enabled") == true
+raise if config.dig("tool_loop_guardrails", "non_interactive_hard_stop_enabled")
 raise if config["model"].key?("base_url")
 RUBY
 
