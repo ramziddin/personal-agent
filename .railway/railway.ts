@@ -8,6 +8,11 @@ import {
 } from "railway/iac";
 
 export default defineRailway(() => {
+  const data = volume("hermes-data", {
+    region: "europe-west4-drams3a",
+    sizeMB: 5000,
+  });
+
   const agent = service("personal-agent", {
     source: github("ramziddin/personal-agent", { branch: "main" }),
     env: {
@@ -21,12 +26,16 @@ export default defineRailway(() => {
     replicas: {
       "europe-west4": 1,
     },
+    deploy: {
+      restartPolicyType: "ON_FAILURE",
+      restartPolicyMaxRetries: 10,
+    },
     volumeMounts: {
-      "/opt/data": volume("hermes-data"),
+      "/opt/data": data,
     },
   });
 
   return project("personal-agent", {
-    resources: [agent],
+    resources: [agent, data],
   });
 });

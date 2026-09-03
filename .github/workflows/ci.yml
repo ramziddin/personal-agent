@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Install pinned dependencies
+        run: bun install --frozen-lockfile
       - name: Install validation tools
         run: |
           sudo apt-get update
@@ -23,6 +26,8 @@ jobs:
         run: |
           sh tests/bootstrap_test.sh
           sh tests/repository_test.sh
+      - name: Type-check Railway IaC
+        run: bunx tsc --noEmit --moduleResolution bundler --module preserve --target es2022 .railway/railway.ts
 
   secret-scan:
     runs-on: ubuntu-latest

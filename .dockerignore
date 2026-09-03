@@ -1,6 +1,7 @@
 .git
 .github
 .railway
+node_modules
 .env
 .env.*
 .hermes

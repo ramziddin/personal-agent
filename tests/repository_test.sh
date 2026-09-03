@@ -6,6 +6,8 @@ required_files='Dockerfile
 .env.example
 .gitignore
 .railway/railway.ts
+package.json
+bun.lock
 hermes/config.yaml
 hermes/SOUL.md
 LICENSE
@@ -43,7 +45,16 @@ raise if config["model"].key?("base_url")
 RUBY
 
 grep -q 'github("ramziddin/personal-agent", { branch: "main" })' .railway/railway.ts
-grep -q '"/opt/data": volume("hermes-data")' .railway/railway.ts
+grep -q 'volume("hermes-data"' .railway/railway.ts
+grep -q '"/opt/data": data' .railway/railway.ts
+grep -q 'region: "europe-west4-drams3a"' .railway/railway.ts
+grep -q 'sizeMB: 5000' .railway/railway.ts
+grep -q 'restartPolicyType: "ON_FAILURE"' .railway/railway.ts
+grep -q 'restartPolicyMaxRetries: 10' .railway/railway.ts
+if grep -Eq 'isDeleted[[:space:]]*:[[:space:]]*true' .railway/railway.ts; then
+  printf '%s\n' 'Railway IaC must not declare destructive resource removal' >&2
+  exit 1
+fi
 grep -q 'GLM_API_KEY: preserve()' .railway/railway.ts
 grep -q 'TELEGRAM_BOT_TOKEN: preserve()' .railway/railway.ts
 grep -q 'docker run --rm personal-agent:test --version' .github/workflows/ci.yml
