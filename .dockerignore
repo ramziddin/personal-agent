@@ -1,0 +1,12 @@
+.git
+.github
+.railway
+.env
+.env.*
+.hermes
+data
+backups
+tests
+README.md
+SECURITY.md
+LICENSE

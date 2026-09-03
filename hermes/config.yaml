@@ -1,0 +1,51 @@
+model:
+  provider: zai
+  default: glm-5.3-flash
+
+terminal:
+  backend: local
+  cwd: /opt/data/workspace
+  timeout: 180
+  home_mode: profile
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375
+  nudge_interval: 10
+
+session_reset:
+  mode: idle
+  idle_minutes: 1440
+
+group_sessions_per_user: true
+
+agent:
+  max_turns: 100
+
+tool_loop_guardrails:
+  warnings_enabled: true
+  hard_stop_enabled: false
+  non_interactive_hard_stop_enabled: true
+  warn_after:
+    exact_failure: 2
+    same_tool_failure: 3
+    idempotent_no_progress: 2
+  hard_stop_after:
+    exact_failure: 5
+    same_tool_failure: 8
+    idempotent_no_progress: 5
+
+approvals:
+  mode: "off"
+  timeout: 300
+  cron_mode: approve
+  destructive_slash_confirm: true
+
+security:
+  redact_secrets: true
+
+platform_toolsets:
+  cli: [hermes-cli]
+  telegram: [hermes-telegram]

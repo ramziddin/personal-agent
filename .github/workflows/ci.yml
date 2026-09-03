@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install validation tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ruby shellcheck
+      - name: Check shell scripts
+        run: shellcheck scripts/bootstrap.sh tests/*.sh
+      - name: Run repository tests
+        run: |
+          sh tests/bootstrap_test.sh
+          sh tests/repository_test.sh
+
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build --tag personal-agent:test .
+      - name: Verify Hermes version command
+        run: docker run --rm personal-agent:test version
