@@ -46,7 +46,7 @@ railway config plan
 railway config apply
 ```
 
-The desired deployment has one Amsterdam replica, the `hermes-data` volume, GitHub `main` as its source, and no public domain. Railway's default `ON_FAILURE` policy restarts the service up to ten times.
+The desired deployment has one Amsterdam replica, the `hermes-data` volume, GitHub `main` as its source, and no public domain. It intentionally retains Railway's effective default `ON_FAILURE` policy with ten retries; declaring those same defaults currently produces perpetual IaC drift because Railway omits them from its returned configuration.
 
 After deployment, wait for Railway to report `SUCCESS`, check bounded logs, and message the bot. A healthy gateway should connect in Telegram polling mode.
 

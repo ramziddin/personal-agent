@@ -49,8 +49,6 @@ grep -q 'volume("hermes-data"' .railway/railway.ts
 grep -q '"/opt/data": data' .railway/railway.ts
 grep -q 'region: "europe-west4-drams3a"' .railway/railway.ts
 grep -q 'sizeMB: 5000' .railway/railway.ts
-grep -q 'restartPolicyType: "ON_FAILURE"' .railway/railway.ts
-grep -q 'restartPolicyMaxRetries: 10' .railway/railway.ts
 if grep -Eq 'isDeleted[[:space:]]*:[[:space:]]*true' .railway/railway.ts; then
   printf '%s\n' 'Railway IaC must not declare destructive resource removal' >&2
   exit 1

@@ -26,10 +26,6 @@ export default defineRailway(() => {
     replicas: {
       "europe-west4": 1,
     },
-    deploy: {
-      restartPolicyType: "ON_FAILURE",
-      restartPolicyMaxRetries: 10,
-    },
     volumeMounts: {
       "/opt/data": data,
     },
