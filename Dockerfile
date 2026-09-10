@@ -1,4 +1,4 @@
-FROM nousresearch/hermes-agent:v2026.8.31
+FROM nousresearch/hermes-agent:v2026.9.7
 
 COPY --chmod=0755 scripts/bootstrap.sh /usr/local/bin/hermes-bootstrap
 COPY --chown=hermes:hermes hermes/ /opt/hermes-bootstrap/
